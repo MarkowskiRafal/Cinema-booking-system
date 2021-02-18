@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Dodawanie filmu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+</head>
+
+<body>
+
+<nav th:replace="index :: nav"></nav>
+
+<div class="container my-5">
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-10">
+                <form action="#" th:action="@{/spectacles/add}" th:object="${spectacle}" method="post">
+                    <div class="row">
+                        <div class="form-group col-md-8">
+                            <label for="title" class="col-form-label">Tytuł</label>
+                            <input type="text" th:field="*{title}" class="form-control" id="title">
+                            <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="description" class="col-form-label">Opis</label>
+                            <input type="text" th:field="*{description}" class="form-control" id="description">
+                            <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="lenght" class="col-form-label">Czas trwania</label>
+                            <input type="text" th:field="*{lenght}" class="form-control" id="lenght">
+                            <span th:if="${#fields.hasErrors('lenght')}" th:errors="*{lenght}" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="minAge" class="col-form-label">Minimalny wiek</label>
+                            <input type="text" th:field="*{minAge}" class="form-control" id="minAge">
+                            <span th:if="${#fields.hasErrors('minAge')}" th:errors="*{minAge}" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="imageUrl" class="col-form-label">Dodaj zdjęcie spektaklu</label>
+                            <input type="text" th:field="*{imageUrl}" class="form-control" id="imageUrl">
+                            <span th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <input type="submit" class="btn btn-primary" value="Dodaj spektakl">
+                        </div>
+                        <div class="form-group col-md-8"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

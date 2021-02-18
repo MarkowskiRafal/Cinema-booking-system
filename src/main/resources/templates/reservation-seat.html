@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Filmy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reservation.css}"/>
+</head>
+<body>
+
+<div th:replace="index :: nav"></div>
+
+
+<div class="container my-2">
+    <div class="card">
+        <div class="card-body">
+            <div class="container my-5">
+                <h1 th:text="${movieName}"> Nazwa filmu</h1>
+
+                <form th:action="@{'/reservation/save/' + ${repertoireId}}" th:object="${seatInfo}" method="post">
+
+                    <div class="seatStructure">
+                        <center>
+
+                            <table id="seatsBlock">
+                                <p id="notification"></p>
+                                <tr>
+                                    <td colspan="16">
+                                        <div class="screen">EKRAN</div>
+                                    </td>
+                                    <td rowspan="22">
+                                        <div class="smallBox greenBox">Wybrane miejsce</div><br/>
+                                        <div class="smallBox redBox">Zajęte miejsce</div><br/>
+                                    </td>
+
+                                    <br/>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>3</td>
+                                    <td>4</td>
+                                    <td>5</td>
+                                    <td>6</td>
+                                    <td>7</td>
+                                    <td></td>
+                                    <td>8</td>
+                                    <td>9</td>
+                                    <td>10</td>
+                                    <td>11</td>
+                                    <td>12</td>
+                                    <td>13</td>
+                                    <td>14</td>
+                                </tr>
+
+                                <tr>
+                                    <td>A</td>
+                                    <td><input th:field="*{map[__${'A1'}__]}" th:disabled="*{map[__${'A1'}__]}" type="checkbox" class="seats" value="A1"></td>
+                                    <!--<td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="A1"></td>-->
+                                    <td><input th:field="*{map[__${'A2'}__]}" th:disabled="*{map[__${'A2'}__]}" type="checkbox" class="seats" value="A2"></td>
+                                    <td><input th:field="*{map[__${'A3'}__]}" th:disabled="*{map[__${'A3'}__]}" type="checkbox" class="seats" value="A3"></td>
+                                    <td><input th:field="*{map[__${'A4'}__]}" th:disabled="*{map[__${'A4'}__]}" type="checkbox" class="seats" value="A4"></td>
+                                    <td><input th:field="*{map[__${'A5'}__]}" th:disabled="*{map[__${'A5'}__]}" type="checkbox" class="seats" value="A5"></td>
+                                    <td><input th:field="*{map[__${'A6'}__]}" th:disabled="*{map[__${'A6'}__]}" type="checkbox" class="seats" value="A6"></td>
+                                    <td><input th:field="*{map[__${'A7'}__]}" th:disabled="*{map[__${'A7'}__]}" type="checkbox" class="seats" value="A7"></td>
+                                    <td class="seatGap"></td>
+                                    <td><input th:field="*{map[__${'A8'}__]}" th:disabled="*{map[__${'A8'}__]}" type="checkbox" class="seats" value="A8"></td>
+                                    <td><input th:field="*{map[__${'A9'}__]}" th:disabled="*{map[__${'A9'}__]}" type="checkbox" class="seats" value="A9"></td>
+                                    <td><input th:field="*{map[__${'A10'}__]}" th:disabled="*{map[__${'10'}__]}" type="checkbox" class="seats" value="A10"></td>
+                                    <td><input th:field="*{map[__${'A11'}__]}" th:disabled="*{map[__${'A11'}__]}" type="checkbox" class="seats" value="A11"></td>
+                                    <td><input th:field="*{map[__${'A12'}__]}" th:disabled="*{map[__${'A12'}__]}" type="checkbox" class="seats" value="A12"></td>
+                                    <td><input th:field="*{map[__${'A13'}__]}" th:disabled="*{map[__${'A13'}__]}" type="checkbox" class="seats" value="A13"></td>
+                                    <td><input th:field="*{map[__${'A14'}__]}" th:disabled="*{map[__${'A14'}__]}" type="checkbox" class="seats" value="A14"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>B</td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="B1"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="B2"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="B3"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="B4"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="B5"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="B6"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="B7"></td>
+                                    <td></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="B8"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="B9"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="B10"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="B11"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="B12"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="B13"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="B14"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>C</td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="C1"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="C2"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="C3"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="C4"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="C5"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="C6"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="C7"></td>
+                                    <td></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="C8"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="C9"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="C10"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="C11"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="C12"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="C13"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="C14"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>D</td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="D1"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="D2"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="D3"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="D4"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="D5"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="D6"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="D7"></td>
+                                    <td></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="D8"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="D9"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="D10"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="D11"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="D12"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="D13"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="D14"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>E</td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="E1"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="E2"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="E3"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="E4"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="E5"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="E6"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="E7"></td>
+                                    <td></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="E8"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="E9"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="E10"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="E11"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="E12"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="E13"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="E14"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>F</td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="F1"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="F2"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="F3"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="F4"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="F5"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="F6"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="F7"></td>
+                                    <td></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="F8"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="F9"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="F10"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="F11"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="F12"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="F13"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="F14"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>G</td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="G1"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="G2"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="G3"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="G4"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="G5"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="G6"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="G7"></td>
+                                    <td></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="G8"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="G9"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="G10"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="G11"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="G12"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="G13"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="G14"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>H</td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="H1"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="H2"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="H3"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="H4"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="H5"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="H6"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="H7"></td>
+                                    <td></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="H8"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="H9"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="H10"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="H11"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="H12"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="H13"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="H14"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>I</td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="I1"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="I2"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="I3"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="I4"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="I5"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="I6"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="I7"></td>
+                                    <td></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="I8"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="I9"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="I10"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="I11"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="I12"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="I13"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="I14"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>J</td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="J1"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="J2"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="J3"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="J4"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="J5"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="J6"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="J7"></td>
+                                    <td></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="J8"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="J9"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="J10"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="J11"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="J12"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="J13"></td>
+                                    <td><input th:field="*{seatReservation.seat}" type="checkbox" class="seats" value="J14"></td>
+                                </tr>
+
+                            </table>
+
+                            <input type = "hidden" th:value="${movieName}">
+                            <input type = "hidden" th:value="${repertoireId}">
+
+                            </br>
+                            <button type="submit">Potwierdź rezerwację.</button>
+                        </center>
+                    </div>
+                </form>
+
+                <br/><br/>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+</div>
+</body>
+</html>
