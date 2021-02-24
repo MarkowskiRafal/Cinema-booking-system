@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Filmy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reservation.css}"/>
+</head>
+<body>
+
+<div th:replace="index :: nav"></div>
+
+
+<div class="container my-2">
+    <div class="card">
+        <div class="card-body">
+            <div class="container my-5">
+                <h1 th:text="${spectacleName}"> Nazwa spektaklu</h1>
+
+                <form th:action="@{'/reservation/save/' + ${repertoireId}}" th:object="${seatInfo}" method="post">
+
+                    <div class="seatStructure">
+                        <center>
+
+                            <table id="seatsBlock">
+                                <p id="notification"></p>
+                                <tr>
+                                    <td colspan="16">
+                                        <div class="screen">EKRAN</div>
+                                    </td>
+                                    <td rowspan="22">
+                                        <div class="smallBox greenBox">Wybrane miejsce</div><br/>
+                                        <div class="smallBox redBox">Zajęte miejsce</div><br/>
+                                    </td>
+
+                                    <br/>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>3</td>
+                                    <td>4</td>
+                                    <td>5</td>
+                                    <td>6</td>
+                                    <td>7</td>
+                                    <td></td>
+                                    <td>8</td>
+                                    <td>9</td>
+                                    <td>10</td>
+                                    <td>11</td>
+                                    <td>12</td>
+                                    <td>13</td>
+                                    <td>14</td>
+                                </tr>
+
+                                <tr th:each="row, iStat : ${rows}">
+                                    <th:block th:each="currentColum: ${#numbers.sequence(1, 14)}">
+                                        <td th:if="${currentColum == 1}" th:text="${row}">A</td>
+                                        <td>
+                                            <input th:field="*{map[__${row + currentColum}__]}" th:disabled="*{map[__${row + currentColum}__]}" type="checkbox" class="seats" th:classappend="*{map[__${row + currentColum}__]} ? redAfter : greenAfter" value="true">
+                                        </td>
+                                        <td th:if="${currentColum == 7}" class="seatGap"></td>
+                                    </th:block>
+                                </tr>
+
+                            </table>
+
+                            <input type = "hidden" th:value="${spectacleName}">
+                            <input type = "hidden" th:value="${repertoireId}">
+
+                            </br>
+                            <button type="submit">Potwierdź rezerwację.</button>
+                        </center>
+                    </div>
+                </form>
+
+                <br/><br/>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+</div>
+</body>
+</html>

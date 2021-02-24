@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Rejestracja</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/register.css}"/>
+</head>
+<body>
+
+<div th:replace="index :: nav"></div>
+
+<form class="box" th:action="@{/register}" method="post" th:object="${appUser}">
+    <div th:if="${param.success}">
+        <div class="alert alert-info"><span style="color: white">Rejestracja przebiegła pomyślnie. Sprawdź podany adres e-mail
+        w celu aktywacji konta.</span></div>
+    </div>
+
+    <h1>Rejestracja: </h1>
+    <input type="text" name="username" placeholder="Login" th:field="*{username}">
+    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="invalid-feedback">Username error</span>
+    <input type="password" name="password" placeholder="Hasło" th:field="*{password}">
+    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalid-feedback">Password error</span>
+    <input type="text" name="name" placeholder="Imię" th:field="*{name}">
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback">Name error</span>
+    <input type="text" name="surname" placeholder="Nazwisko" th:field="*{surname}">
+    <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="invalid-feedback">Surname error</span>
+    <input type="email" name="email" placeholder="E-Mail" th:field="*{email}">
+    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalid-feedback">Email error</span>
+    <input type="text" name="phone" placeholder="Telefon" th:field="*{phone}">
+    <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="invalid-feedback">Phone error</span>
+    <input type="submit" value="Rejestruję!">
+    <div class="form-group">
+        <span style="color: white">Już posiadasz konto? <a href="/" th:href="@{/login}">Zaloguj się tutaj</a></span>
+    </div>
+</form>
+
+</body>
+</html>

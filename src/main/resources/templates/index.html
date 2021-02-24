@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Strona główna</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+</head>
+<body>
+
+<nav th:fragment="nav" class="topnav">
+    <a class="active" href="http://localhost:8080">Strona główna</a>
+    <a href="http://localhost:8080/movies/list">Repertuar kina</a>
+    <a href="http://localhost:8080/spectacles/list">Repertuar teatru</a>
+    <a href="http://localhost:8080/about">O nas</a>
+    <a href="http://localhost:8080/localization">Kontakt i lokalizacja</a>
+    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}"> <a href="http://localhost:8080/movies/showForm">Dodaj film</a></div>
+    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}"> <a href="http://localhost:8080/spectacles/showForm">Dodaj spektakl</a></div>
+    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a href="http://localhost:8080/console">Baza danych</a></div>
+
+    <div class="test">
+        <a sec:authorize="!isAuthenticated()" class="nav-item"><a class="btn btn-outline-light" th:href="@{/register}">Zarejestruj się</a></a>
+        <a sec:authorize="!isAuthenticated()" class="nav-item"><a class="btn btn-outline-light" th:href="@{/login}">Zaloguj się</a></a>
+
+        <a sec:authorize="isAuthenticated()" class="nav-item dropdown">
+            <a class="nav-item" id="logoutNavbarDropdown" role="button"
+               aria-haspopup="true" aria-expanded="false" th:href="@{/logout}"> Wyloguj się
+            </a>
+        </a>
+
+        <a sec:authorize="isAuthenticated()" class="nav-item dropdown">
+            <a class="nav-item" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false" sec:authentication="name">
+            </a>
+        </a>
+    </div>
+</nav>
+
+<div class="container my-2">
+    <div class="card">
+        <div class="card-body">
+            <div class="container my-5">
+
+                <p style="font-size:95%;" class="my-5" align="center">
+                    <b>Zapraszamy do sprawdzenia aktualnych repertuarów!</b>
+                </p>
+
+                <p style="font-size:95%;" class="my-5">
+                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                    Donec ante velit, scelerisque a arcu sit amet, iaculis suscipit libero. Curabitur ultrices purus
+                    nisl. Fusce tempor velit sit amet justo dictum facilisis ut sit amet risus. Sed nec massa dictum,
+                    egestas sapien id, placerat ante. Suspendisse tortor leo, tempus eget semper vitae, tempus eu sem.
+                    Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                    Sed sit amet feugiat metus. Aenean sit amet enim facilisis, feugiat ipsum vitae, euismod nisi.
+                    Fusce et augue tellus. Etiam porttitor ultricies est, vel bibendum lorem porta ac.
+                </p>
+
+                <p style="font-size:95%;" class="my-5">
+                    Vivamus eget molestie nibh. In in mauris vitae magna pellentesque accumsan eget id nibh.
+                    Sed luctus ac leo ut ullamcorper. Quisque orci ligula, faucibus vitae enim vel, auctor aliquet
+                    quam. Nullam porttitor semper odio, vel ullamcorper velit commodo eget. Morbi hendrerit
+                    molestie nisl, non dapibus leo consectetur molestie. Fusce non semper enim. Etiam eu blandit
+                    turpis. Fusce lacinia, urna a varius molestie, neque nibh vestibulum nibh, quis dapibus
+                    lorem odio eget mauris. Aenean rutrum dignissim lorem, a finibus magna interdum ut. Integer
+                    id nibh quis ex ornare iaculis. Proin mollis euismod ante, in lobortis diam.
+                </p>
+
+                <p style="font-size:95%;" class="my-5">
+                    Sed feugiat nunc eget purus malesuada, a cursus nisi scelerisque. Vivamus ac massa sed
+                    quam mattis aliquam vitae ac magna. Suspendisse potenti. Quisque aliquet ultrices erat, ut
+                    elementum est molestie quis. Sed hendrerit risus massa, id fringilla mi auctor eget. Orci
+                    varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer
+                    vitae est urna. Morbi gravida augue quis augue pellentesque porta. Fusce non dolor in orci
+                    maximus mattis. Nunc lectus ex, laoreet sit amet elementum quis, commodo a velit. Aliquam
+                    sit amet purus a urna tincidunt tempus eget lacinia purus.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

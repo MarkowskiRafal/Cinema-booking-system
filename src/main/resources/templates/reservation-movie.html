@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Filmy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reservation.css}"/>
+</head>
+<body>
+
+<div th:replace="index :: nav"></div>
+
+
+<div class="container my-2">
+    <div class="card">
+        <div class="card-body">
+            <div class="container my-5">
+                <div>
+                    <table class="table table-striped table-responsive-md">
+                        <thead>
+                        <tr>
+                            <th>Czas rezerwacji</th>
+                            <th></th>
+                            <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Edytuj</th>
+                            <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Usuń</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="repertoire: ${repertoires}">
+                            <td th:text="${#temporals.format(repertoire.date, 'dd.MM.yyyy HH:mm')}">2021-01-23 13:00:00</td>
+
+                            <td><button type="submit"><a th:href="@{'/movies/' +  ${repertoire.movie.getTitle()} + '/reservation/' + ${repertoire.id}}">
+                                Zarezerwuj</a></button></td>
+
+                            <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><button type="submit">
+                                <a th:href="@{'/movies/admin/' +  ${repertoire.movie.getTitle()} + '/updateRepertoire/' + ${repertoire.id}}">
+                                    <i class="fas fa-edit"></i></a></button></td>
+
+                            <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><button type="submit">
+                                <a th:href="@{'/movies/admin/deleteRepertoire/' + ${repertoire.id}}">
+                                    <i class="fas fa-trash-alt"></i></a></button></td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
