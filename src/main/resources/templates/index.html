@@ -14,14 +14,14 @@
 <body>
 
 <nav th:fragment="nav" class="topnav">
-    <a class="active" href="http://localhost:8080">Strona główna</a>
-    <a href="http://localhost:8080/movies/list">Repertuar kina</a>
-    <a href="http://localhost:8080/spectacles/list">Repertuar teatru</a>
-    <a href="http://localhost:8080/about">O nas</a>
-    <a href="http://localhost:8080/localization">Kontakt i lokalizacja</a>
-    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}"> <a href="http://localhost:8080/movies/showForm">Dodaj film</a></div>
-    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}"> <a href="http://localhost:8080/spectacles/showForm">Dodaj spektakl</a></div>
-    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a href="http://localhost:8080/console">Baza danych</a></div>
+    <a class="active" th:href="@{'/'}">Strona główna</a>
+    <a th:href="@{'/movies/list'}">Repertuar kina</a>
+    <a th:href="@{'/spectacles/list'}">Repertuar teatru</a>
+    <a th:href="@{'/about'}">O nas</a>
+    <a th:href="@{'/localization'}">Kontakt i lokalizacja</a>
+    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}"> <a th:href="@{'/movies/showForm'}">Dodaj film</a></div>
+    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}"> <a th:href="@{'/spectacles/showForm'}">Dodaj spektakl</a></div>
+    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{'console'}">Baza danych</a></div>
 
     <div class="test">
         <a sec:authorize="!isAuthenticated()" class="nav-item"><a class="btn btn-outline-light" th:href="@{/register}">Zarejestruj się</a></a>

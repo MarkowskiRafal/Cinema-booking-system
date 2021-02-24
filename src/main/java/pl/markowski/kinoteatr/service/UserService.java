@@ -45,7 +45,7 @@ public class UserService {
         token.setValue(tokenValue);
         token.setAppUser(appUser);
         tokenRepo.save(token);
-        String url = "http://localhost:8080/token?value=" + tokenValue;
+        String url = "https://kinoteatr-app.herokuapp.com/token?value=" + tokenValue;
 
         try {
             mailService.sendMail(appUser.getEmail(), "Register", url, false);
