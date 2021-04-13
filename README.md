@@ -1,5 +1,7 @@
 # Cinema Project
 
+This application is available for free on heroku: https://kinoteatr-app.herokuapp.com
+
 ## Spis treści
 * [About](#About)
 * [Technologies](#technologies)
@@ -26,6 +28,7 @@ modern application that is functional and fault-tolerant. This application works
 ## Functions
 There is user and administrator who had additional functions. Every user can browse the application, register and login to cinema system and reserve a ticket. Administrator can
 add, change and delete movies.
+
 
 The app should also behave appropriately on mobile devices
 
