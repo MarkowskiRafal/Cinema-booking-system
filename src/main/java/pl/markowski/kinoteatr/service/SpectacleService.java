@@ -33,9 +33,4 @@ public class SpectacleService {
         spectacleRepo.deleteById(id);
     }
 
-//    @EventListener(ApplicationReadyEvent.class)
-//    public void fillDb() {
-//        save(new Spectacle("teatr 4","Ga Eso",127,7));
-//        save(new Spectacle("pteatr","MoaW",96,12));
-//    }
 }

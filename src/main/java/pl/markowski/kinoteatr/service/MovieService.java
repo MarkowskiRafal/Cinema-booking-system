@@ -37,9 +37,4 @@ public class MovieService {
         movieRepo.deleteById(id);
     }
 
-//    @EventListener(ApplicationReadyEvent.class)
-//    public void fillDb() {
-//        save(new Movie("Miasto 44","Es","Giga Es",127,7));
-//        save(new Movie("Patusy","Noobasek","MonkaW",96,12));
-//    }
 }
