@@ -13,5 +13,6 @@ modern application that is functional and fault-tolerant.
 
 ## Technologies
 • Java
+
 • Spring Boot.
 
