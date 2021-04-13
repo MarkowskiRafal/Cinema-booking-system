@@ -22,7 +22,7 @@ modern application that is functional and fault-tolerant. This application works
 * Thymeleaf
 
 ## TO-DO
-- In order to create a proper web application, which are created nowadays, there are a few things that need to be changed:
+ In order to create a proper web application, which are created nowadays, there are a few things that need to be changed:
  * Upgrade front-end (Thymeleaf engine) to a newer solution.
  * Move the database outside the application e.g. MySQL
 
