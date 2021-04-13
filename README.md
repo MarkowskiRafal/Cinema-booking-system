@@ -12,6 +12,9 @@ Cinema project was written for the university. This project aimed to broaden the
 modern application that is functional and fault-tolerant. 
 
 ## Technologies
-* create  new ticket for the movie show
-* getting all tickets for screening
+* Java
+* Spring Boot
+* Hibernate
+* H2
+* Thymeleaf
 
