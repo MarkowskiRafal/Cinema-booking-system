@@ -44,5 +44,5 @@ Administrator has additional values on the menu.
 
 Final reservation
 
-![Bez tytułu](https://user-images.githubusercontent.com/46786100/114559641-3edcf080-9c6c-11eb-8a9e-c907e2b470da.jpg)
+![Bez tytułu](https://user-images.githubusercontent.com/46786100/114559690-49978580-9c6c-11eb-804c-f29a3514f906.jpg)
 
