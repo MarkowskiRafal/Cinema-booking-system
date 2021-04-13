@@ -32,8 +32,7 @@ add, change and delete movies.
 
 The repertoire of movies:
 
-![Bez tytułu](https://user-images.githubusercontent.com/46786100/114558590-20c2c080-9c6b-11eb-9830-88c866bfb8ac.jpg)
-
+![Bez tytułu](https://user-images.githubusercontent.com/46786100/114558945-7e570d00-9c6b-11eb-9cea-f6e3ec87cc75.jpg)
 
 The app should also behave appropriately on mobile devices
 
