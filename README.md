@@ -1,4 +1,3 @@
-![172990822_260064565770636_2167538867048692561_n](https://user-images.githubusercontent.com/46786100/114551295-7bf0b500-9c63-11eb-8bba-5d4c752c538c.jpg)
 # Cinema Project
 
 ## Spis treści
