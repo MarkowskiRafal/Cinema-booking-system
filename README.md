@@ -22,3 +22,6 @@ modern application that is functional and fault-tolerant.
 - In order to create a proper web application, which are created nowadays, there are a few things that need to be changed:
  * Upgrade front-end (Thymeleaf engine) to a newer solution.
  * Move the database outside the application e.g. MySQL
+
+## Functions
+There is user and administrator who had additional functions. Every user can browse the application, register and login to cinema system and reserve a ticket. Administrator can add, change and delete movies.
