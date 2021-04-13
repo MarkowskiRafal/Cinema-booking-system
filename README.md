@@ -1,8 +1,9 @@
 # Cinema Project
 
-This application is available for free on heroku: https://kinoteatr-app.herokuapp.com
+This application is available for free on heroku: 
+https://kinoteatr-app.herokuapp.com
 
-## Spis treści
+## Contents
 * [About](#About)
 * [Technologies](#technologies)
 * [TO-DO](#TO-DO)
