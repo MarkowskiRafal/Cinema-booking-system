@@ -1,8 +1,11 @@
 # Cinema Project
 
 ## Spis treści
-* [Informacje](#informacje)
-* [Technologie](#technologie)
-* [Funkcje](#funkcje)
-* [Zrzuty ekranów](#zrzuty-ekranów)
-* [Status](#status)
+* [Informations](#Informations)
+* [Technologies](#technologie)
+* [TO-DO](#TO-DO)
+* [Functions](#Functions)
+
+
+## Informations
+Projekt Asyste
