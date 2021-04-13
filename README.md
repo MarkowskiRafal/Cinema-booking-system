@@ -30,6 +30,10 @@ modern application that is functional and fault-tolerant. This application works
 There is user and administrator who had additional functions. Every user can browse the application, register and login to cinema system and reserve a ticket. Administrator can
 add, change and delete movies.
 
+The repertoire of movies:
+
+![Bez tytułu](https://user-images.githubusercontent.com/46786100/114558590-20c2c080-9c6b-11eb-9830-88c866bfb8ac.jpg)
+
 
 The app should also behave appropriately on mobile devices
 
