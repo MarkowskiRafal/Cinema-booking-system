@@ -25,9 +25,8 @@ a modern application that is functional and fault-tolerant. This application was
 
 ## Functions
 - Everyone can browse application.
-- Additional menu with more options for admin who can:
-- Add, edit and delete movies,
-- Add, edit and delete the day and time when each movie will play in the cinema.
+- Additional menu with more options for admin who can add, edit and delete movies.
+- Admin can add, edit and delete the day and time when each movie will play in the cinema.
 - Users can register and login to the application.
 - Users can reserve seats. 
 
