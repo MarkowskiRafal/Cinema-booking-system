@@ -11,8 +11,8 @@ https://kinoteatr-app.herokuapp.com
 
 
 ## About
-Cinema project was written for the university. This project aimed to broaden the knowledge of programming and the use of my knowledge in practice... The main goal was to create
-a modern application that is functional and fault-tolerant. As a java application, it works well on mobile devices.
+This project aimed to broaden the knowledge of programming and the use of my knowledge in practice. The main goal was to create
+a modern application that is functional and fault-tolerant. This application was tested on mobile devices.
 
 ## Technologies
 * Java
