@@ -1,13 +1,13 @@
 # Cinema Project
 
-This application is available for free on heroku: 
+This application is available on heroku: 
 https://kinoteatr-app.herokuapp.com
 
 ## Contents
 * [About](#About)
 * [Technologies](#technologies)
-* [TO-DO](#TO-DO)
 * [Functions](#Functions)
+* [TO-DO](#TO-DO)
 
 
 ## About
@@ -22,14 +22,9 @@ a modern application that is functional and fault-tolerant. As a java applicatio
 * Thymeleaf
 * Bootstrap
 
-## TO-DO
- In order to create a proper web application, which are created nowadays, there are a few things that need to be changed:
- * Upgrade front-end (Thymeleaf engine) to a newer solution.
- * Move the database outside the application e.g. MySQL
 
 ## Functions
-There is user and administrator who had additional functions. Every user can browse the application, register and login to cinema system and reserve a ticket. Administrator can
-add, change and delete movies.
+- Everyone can browse application
 
 The repertoire of movies:
 
@@ -46,4 +41,10 @@ Administrator has additional values on the menu.
 Final reservation
 
 ![Bez tytułu](https://user-images.githubusercontent.com/46786100/114559690-49978580-9c6c-11eb-804c-f29a3514f906.jpg)
+
+
+## TO-DO
+ In order to create a proper web application, which are created nowadays, there are a few things that need to be changed:
+ * Upgrade front-end (Thymeleaf engine) to a newer solution.
+ * Move the database outside the application e.g. MySQL
 
