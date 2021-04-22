@@ -24,9 +24,15 @@ a modern application that is functional and fault-tolerant. As a java applicatio
 
 
 ## Functions
-- Everyone can browse application
+- Everyone can browse application.
+- Additional menu with more options for admin who can:
+- Add, edit and delete movies,
+- Add, edit and delete the day and time when each movie will play in the cinema.
+- Users can register and login to the application.
+- Users can reserve seats. 
 
-The repertoire of movies:
+
+#### The repertoire of movies:
 
 ![Bez tytułu](https://user-images.githubusercontent.com/46786100/114559778-5e741900-9c6c-11eb-88d1-7e5d841da45f.jpg)
 
