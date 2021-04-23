@@ -17,6 +17,7 @@ a modern application that is functional and fault-tolerant. This application was
 ## Technologies
 * Java
 * Spring Boot
+* Spring Security
 * Hibernate
 * H2
 * Thymeleaf
@@ -28,7 +29,7 @@ a modern application that is functional and fault-tolerant. This application was
 
 ## Functions
 - Everyone can browse application.
-- Additional menu with more options for admin who can add, edit and delete movies.
+- Additional menu with more options for admin who can 1.) add, 2.) edit and 3.)delete movies.
 - Admin can add, edit and delete the day and time when each movie will play in the cinema.
 - Users can register and login to the application.
 - Users can reserve seats. 
@@ -42,7 +43,7 @@ The app should also behave appropriately on mobile devices
 
 ![172990822_260064565770636_2167538867048692561_n](https://user-images.githubusercontent.com/46786100/114551398-a0e52800-9c63-11eb-81bd-307eb7d15f11.jpg)
 
-Administrator has additional values on the menu.
+Administrator has additional values on the menu above. He can add and change repertoire of movies
 
 ![Bez tytułu](https://user-images.githubusercontent.com/46786100/114559270-d7bf3c00-9c6b-11eb-90ec-cab4b76ba792.jpg)
 
