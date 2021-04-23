@@ -39,7 +39,7 @@ a modern application that is functional and fault-tolerant. This application was
 
 ![Bez tytułu](https://user-images.githubusercontent.com/46786100/114559778-5e741900-9c6c-11eb-88d1-7e5d841da45f.jpg)
 
-The app should also behave appropriately on mobile devices
+The app should also behave properly on mobile devices
 
 ![172990822_260064565770636_2167538867048692561_n](https://user-images.githubusercontent.com/46786100/114551398-a0e52800-9c63-11eb-81bd-307eb7d15f11.jpg)
 
