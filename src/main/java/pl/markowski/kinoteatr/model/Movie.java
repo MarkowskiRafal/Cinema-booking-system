@@ -1,11 +1,8 @@
 package pl.markowski.kinoteatr.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Getter
