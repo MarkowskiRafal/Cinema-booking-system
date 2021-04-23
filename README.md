@@ -20,7 +20,9 @@ a modern application that is functional and fault-tolerant. This application was
 * Hibernate
 * H2
 * Thymeleaf
-* Bootstrap
+* Bootstrapna
+#### Used tools:
+* Lombok
 
 
 ## Functions
