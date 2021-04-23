@@ -23,6 +23,7 @@ a modern application that is functional and fault-tolerant. This application was
 * Bootstrap
 #### Used tools:
 * Lombok
+* Maven
 
 
 ## Functions
