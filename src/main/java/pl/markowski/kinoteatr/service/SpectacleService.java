@@ -1,8 +1,6 @@
 package pl.markowski.kinoteatr.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
 import pl.markowski.kinoteatr.model.Spectacle;
 import pl.markowski.kinoteatr.repo.SpectacleRepo;
 

@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import pl.markowski.kinoteatr.model.Movie;
 import pl.markowski.kinoteatr.model.Repertoire;
 import pl.markowski.kinoteatr.model.Spectacle;
 import pl.markowski.kinoteatr.repo.RepertoireRepo;
@@ -17,7 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/spectacles")
-//@Transactional
+
 public class SpectacleController {
 
     private SpectacleRepo spectacleRepo;
@@ -30,15 +29,15 @@ public class SpectacleController {
     }
 
 
-    @GetMapping("showForm")
-    public String showSpectacleForm(Spectacle spectacle) {
-        return "add-spectacle";
-    }
-
     @GetMapping("list")
     public String getSpectacles(Model model) {
         model.addAttribute("spectacles", spectacleRepo.findAll());
         return "spectacleIndex";
+    }
+
+    @GetMapping("showForm")
+    public String showSpectacleForm(Spectacle spectacle) {
+        return "add-spectacle";
     }
 
     @PostMapping("add")
@@ -122,8 +121,7 @@ public class SpectacleController {
     @Transactional
     public String updateSpectacleRepertoire(@ModelAttribute ("repertoire") Repertoire repertoire,
                                    @ModelAttribute("spectacleId") Long spectacleId,
-                                   @ModelAttribute("repertoireId") Long repertoireId,
-                                   BindingResult result) {
+                                   @ModelAttribute("repertoireId") Long repertoireId) {
         Repertoire repertoireFromDb = repertoireRepo.getOne(repertoireId);
         repertoireFromDb.setDate(repertoire.getDate());
         return "redirect:/spectacles/list";
@@ -131,7 +129,7 @@ public class SpectacleController {
 
     @GetMapping("/admin/deleteRepertoire/{repertoireId}")
     @Transactional
-    public String deleteSpectacleRepertoire(Model model, @PathVariable("repertoireId") Long repertoireId) {
+    public String deleteSpectacleRepertoire(@PathVariable("repertoireId") Long repertoireId) {
         repertoireRepo.deleteById(repertoireId);
         return "redirect:/spectacles/list";
     }

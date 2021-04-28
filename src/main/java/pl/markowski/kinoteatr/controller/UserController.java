@@ -2,6 +2,7 @@ package pl.markowski.kinoteatr.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import pl.markowski.kinoteatr.model.AppUser;
 import pl.markowski.kinoteatr.service.UserService;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 
 @Controller
@@ -27,7 +29,10 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Principal principal) {
+        if (principal!=null && ((Authentication)principal).isAuthenticated()) {
+            return "forward:/";
+        }
         return "login";
     }
 
@@ -38,7 +43,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerOk(@Valid @ModelAttribute("appUser") AppUser appUser, BindingResult bindingResult, Model model) {
+    public String registerOk(@Valid @ModelAttribute("appUser") AppUser appUser, BindingResult bindingResult) {
 
         if (userService.appUserUsernameExists(appUser.getUsername())) {
             bindingResult.addError(new FieldError

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.markowski.kinoteatr.service.SeatReservation;
-import pl.markowski.kinoteatr.service.Testing;
+import pl.markowski.kinoteatr.service.Reserve;
 import pl.markowski.kinoteatr.model.*;
 import pl.markowski.kinoteatr.repo.*;
 
@@ -53,7 +53,6 @@ public class ReservationController {
     @GetMapping("/spectacles/{spectacleName}/reservation")
     public String spectacleReservationPage(Model model, @PathVariable ("spectacleName") String spectacleName) {
 
-
         Spectacle spectacle = spectacleRepo.findByTitle(spectacleName);
         List<Repertoire> repertoires = repertoireRepo.findBySpectacleId(spectacle.getId());
         model.addAttribute("repertoires", repertoires);
@@ -63,19 +62,8 @@ public class ReservationController {
     @GetMapping("/movies/{movieName}/reservation/{repertoireId}")
     public String movieReservationSeatPage(Model model, @PathVariable("movieName") String movieName,
                                            @PathVariable("repertoireId") Long repertoireId) {
-        Testing testingMovie = new Testing();
-        SeatReservation seatReservation = new SeatReservation();
 
-        Map<String,Boolean> mapMovie = new HashMap<>();
-
-        getReservedSeats(repertoireId).forEach(seat -> {
-            mapMovie.put(seat, true);
-        });
-
-        testingMovie.setMap(mapMovie);
-
-        testingMovie.setSeatReservation(seatReservation);
-        model.addAttribute("seatInfo", testingMovie);
+        reserve(model, repertoireId);
         model.addAttribute("movieName", movieName);
         model.addAttribute("repertoireId", repertoireId);
         model.addAttribute("rows", rows);
@@ -86,19 +74,7 @@ public class ReservationController {
     public String spectacleReservationSeatPage(Model model, @PathVariable("spectacleName") String spectacleName,
                                                @PathVariable("repertoireId") Long repertoireId) {
 
-        Testing testingSpectacle = new Testing();
-        SeatReservation seatReservation = new SeatReservation();
-
-        Map<String,Boolean> mapSpectacle = new HashMap<>();
-
-        getReservedSeats(repertoireId).forEach(seat -> {
-            mapSpectacle.put(seat, true);
-        });
-
-        testingSpectacle.setMap(mapSpectacle);
-
-        testingSpectacle.setSeatReservation(seatReservation);
-        model.addAttribute("seatInfo", testingSpectacle);
+        reserve(model, repertoireId);
         model.addAttribute("spectacleName", spectacleName);
         model.addAttribute("repertoireId", repertoireId);
         model.addAttribute("rows", rows);
@@ -106,10 +82,10 @@ public class ReservationController {
     }
 
     @PostMapping("/reservation/save/{repertoireId}")
-    public String reserve(@ModelAttribute ("seatInfo") Testing testing, Principal principal,
+    public String reserve(@ModelAttribute ("seatInfo") Reserve reserve, Principal principal,
                           @ModelAttribute("repertoireId") Long repertoireId) {
 
-        List<String> reservedSeats = getReservedSeats(testing);
+        List<String> reservedSeats = getReservedSeats(reserve);
         if (reservedSeats.size() > 0 && reservedSeats.size() <= 15) {
             UUID uuid = UUID.randomUUID();
             Ticket ticket = new Ticket();
@@ -119,12 +95,16 @@ public class ReservationController {
 
             Reservation reservation = new Reservation();
 
-            reservation.setTicket(ticketRepo.findByUuid(uuid).get());
-            Repertoire repertoire = repertoireRepo.findById(repertoireId).get();
+            reservation.setTicket(ticketRepo.findByUuid(uuid).orElse(null));
+            Repertoire repertoire = repertoireRepo.findById(repertoireId).orElse(null);
             try {
-                reservation.setMovie(movieRepo.findByTitle(repertoire.getMovie().getTitle()));
+                if (repertoire != null) {
+                    reservation.setMovie(movieRepo.findByTitle(repertoire.getMovie().getTitle()));
+                }
             } catch (NullPointerException e) {
-                reservation.setSpectacle(spectacleRepo.findByTitle(repertoire.getSpectacle().getTitle()));
+                if (repertoire.getSpectacle() != null) {
+                    reservation.setSpectacle(spectacleRepo.findByTitle(repertoire.getSpectacle().getTitle()));
+                }
             }
             reservation.setRepertoire(repertoire);
             reservation.setAppUser(appUserRepo.findByUsername(principal.getName()));
@@ -135,9 +115,23 @@ public class ReservationController {
         }
     }
 
-    private List<String> getReservedSeats(@ModelAttribute("seatInfo") Testing testing) {
+    private void reserve(Model model, @PathVariable("repertoireId") Long repertoireId) {
+        Reserve reserveMovie = new Reserve();
+        SeatReservation seatReservation = new SeatReservation();
+
+        Map<String,Boolean> mapMovie = new HashMap<>();
+
+        getReservedSeats(repertoireId).forEach(seat -> mapMovie.put(seat, true));
+
+        reserveMovie.setMap(mapMovie);
+
+        reserveMovie.setSeatReservation(seatReservation);
+        model.addAttribute("seatInfo", reserveMovie);
+    }
+
+    private List<String> getReservedSeats(@ModelAttribute("seatInfo") Reserve reserve) {
         List<String> reservedSeats = new ArrayList<>();
-        for (Map.Entry<String, Boolean> entry : testing.getMap().entrySet()) {
+        for (Map.Entry<String, Boolean> entry : reserve.getMap().entrySet()) {
             if (TRUE.equals(entry.getValue())) {
                 reservedSeats.add(entry.getKey());
             }

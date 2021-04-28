@@ -11,8 +11,6 @@ import pl.markowski.kinoteatr.repo.TokenRepo;
 
 
 import javax.mail.MessagingException;
-import javax.transaction.Transactional;
-import java.util.Optional;
 import java.util.UUID;
 
 
@@ -45,23 +43,13 @@ public class UserService {
         token.setValue(tokenValue);
         token.setAppUser(appUser);
         tokenRepo.save(token);
-        String url = "https://kinoteatr-app.herokuapp.com/token?value=" + tokenValue;
+        String url = "localhost:8080/token?value=" + tokenValue;
 
         try {
             mailService.sendMail(appUser.getEmail(), "Register", url, false);
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-    }
-
-    @Transactional
-    public  AppUser  findByEmail(String email) {
-        return appUserRepo.findByEmail(email);
-    }
-
-    @Transactional
-    public AppUser findByUsername(String username) {
-        return appUserRepo.findByEmail(username);
     }
 
     public boolean appUserEmailExists(String email){

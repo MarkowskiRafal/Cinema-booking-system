@@ -6,16 +6,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "repertuar")
+@Table(name = "repertoire")
 public class Repertoire {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,15 +21,14 @@ public class Repertoire {
     private Long id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    @Column(name = "czas")
     private LocalDateTime date;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "film_id", referencedColumnName = "id")
+    @JoinColumn(name = "movie_id", referencedColumnName = "id")
     private Movie movie;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "spektakl_id")
+    @JoinColumn(name = "spectacle_id")
     @Nullable
     private Spectacle spectacle;
 

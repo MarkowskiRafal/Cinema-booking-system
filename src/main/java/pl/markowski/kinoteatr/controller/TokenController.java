@@ -26,7 +26,6 @@ public class TokenController {
         this.appUserRepo = appUserRepo;
     }
 
-
     @GetMapping("/token")
     public String singup(@RequestParam String value) {
         Token byValue = tokenRepo.findByValue(value);
@@ -43,12 +42,12 @@ public class TokenController {
     }
 
     @GetMapping("/successful")
-    public String successful(Model model) {
+    public String successful() {
         return "successful";
     }
 
     @GetMapping("/unsuccessful")
-    public String unsuccessful(Model model) {
+    public String unsuccessful() {
         return "unsuccessful";
     }
 }

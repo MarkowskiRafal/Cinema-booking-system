@@ -14,10 +14,9 @@ public class Token {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "wartosc")
     private String value;
 
     @OneToOne
-    @JoinColumn(name = "uzytkownik_id")
+    @JoinColumn(name = "user_id")
     private AppUser appUser;
 }

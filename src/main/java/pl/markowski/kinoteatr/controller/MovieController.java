@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/movies")
-//@Transactional
+
 public class MovieController {
 
     private MovieRepo movieRepo;
@@ -29,15 +29,15 @@ public class MovieController {
     }
 
 
-    @GetMapping("showForm")
-    public String showMovieForm(Movie movie) {
-        return "add-movie";
-    }
-
     @GetMapping("list")
     public String getMovies(Model model) {
         model.addAttribute("movies", movieRepo.findAll());
         return "movieIndex";
+    }
+
+    @GetMapping("showForm")
+    public String showMovieForm(Movie movie) {
+        return "add-movie";
     }
 
     @PostMapping("add")
@@ -122,8 +122,8 @@ public class MovieController {
     @Transactional
     public String updateMovieRepertoire(@ModelAttribute ("repertoire") Repertoire repertoire,
                                 @ModelAttribute("movieId") Long movieId,
-                                @ModelAttribute("repertoireId") Long repertoireId,
-                                BindingResult result) {
+                                @ModelAttribute("repertoireId") Long repertoireId, BindingResult result) {
+
         Repertoire repertoireFromDb = repertoireRepo.getOne(repertoireId);
         repertoireFromDb.setDate(repertoire.getDate());
         return "redirect:/movies/list";
@@ -132,6 +132,7 @@ public class MovieController {
     @GetMapping("/admin/deleteRepertoire/{repertoireId}")
     @Transactional
     public String deleteMovieRepertoire(Model model, @PathVariable("repertoireId") Long repertoireId) {
+
         repertoireRepo.deleteById(repertoireId);
         return "redirect:/movies/list";
     }

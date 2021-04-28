@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "film")
+@Table(name = "movie")
 public class Movie {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,17 +16,19 @@ public class Movie {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "tytul", unique = true)
+    @Column(unique = true)
     private String title;
-    @Column(name = "kategoria")
+
     private String category;
-    @Column(name = "opis", columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
+
     private String description;
-    @Column(name = "czasTrwania")
+
     private Integer lenght;
-    @Column(name = "minimalnyWiek")
+
     private Integer minAge;
-    @Column(name = "zdjecie", columnDefinition = "TEXT")
+
+    @Column(columnDefinition = "TEXT")
     private String imageUrl;
 
     @OneToMany(mappedBy = "movie", orphanRemoval = true)
