@@ -73,8 +73,7 @@ screening times. The app was tested on mobile devices.
 
 ![image](https://user-images.githubusercontent.com/46786100/118122986-e2e4c380-b3f3-11eb-96a3-305d48c28eb2.png)
 
-
-### The app should also behave properly on mobile devices
+### Responsiveness on mobile devices:
 
 ![172990822_260064565770636_2167538867048692561_n](https://user-images.githubusercontent.com/46786100/114551398-a0e52800-9c63-11eb-81bd-307eb7d15f11.jpg)
 
