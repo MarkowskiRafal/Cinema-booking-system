@@ -3,7 +3,7 @@
 This application is available on heroku: 
 https://kinoteatr-app.herokuapp.com
 </br>
-User account: login: user password: user | Admin account: login: admin password: admin
+<b>User account-</b> login: <b>user</b> password: <b>user</b> | <b>Admin account-</b> login: <b>admin</b> password: <b>admin</b>
 
 ## Contents
 * [About](#About)
