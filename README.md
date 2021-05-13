@@ -2,6 +2,8 @@
 
 This application is available on heroku: 
 https://kinoteatr-app.herokuapp.com
+</br>
+User account: login: user password: user | Admin account: login: admin password: admin
 
 ## Contents
 * [About](#About)
@@ -11,8 +13,10 @@ https://kinoteatr-app.herokuapp.com
 
 
 ## About
-This project aimed to broaden the knowledge of programming and the use of my knowledge in practice. The main goal was to create
-a modern application that is functional and fault-tolerant. This application was tested on mobile devices.
+This project aimed to broaden the knowledge of programming and the use of my knowledge in practice. The main goal was to create a modern application that is functional and
+fault-tolerant. This application is used to book seats in a cinema. Users can browse the repertoire, select a day and time, and then reserve seats. The seats are divided into
+already reserved and unreserved. All data is stored in the database. Users can register and log into the system. Administrator is able to do CRUD operations on movies and
+screening times. The app was tested on mobile devices.
 
 ## Technologies
 * Java
@@ -23,16 +27,16 @@ a modern application that is functional and fault-tolerant. This application was
 * Thymeleaf
 * Bootstrap
 #### Used tools:
-* Lombok
 * Maven
+* Lombok
 
 
 ## Functions
-- Everyone can browse application.
-- Additional menu with more options for admin who can 1.) add, 2.) edit and 3.)delete movies.
-- Admin can add, edit and delete the day and time when each movie will play in the cinema.
-- Users can register and login to the application.
-- Users can reserve seats. 
+- Everyone can browse the application without logging into the system.
+- Additional menu with more options for admin who can add, edit and delete movies.
+- Admin can add, edit and delete the day and time when a particular movie will be playing in the cinema.
+- Non logged in users can register and login to the application.
+- Logged in users can reserve seats.
 
 
 #### The repertoire of movies:
