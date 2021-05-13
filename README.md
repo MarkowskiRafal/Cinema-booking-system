@@ -75,6 +75,7 @@ screening times. The app was tested on mobile devices.
 ### The app should also behave properly on mobile devices
 
 ![172990822_260064565770636_2167538867048692561_n](https://user-images.githubusercontent.com/46786100/114551398-a0e52800-9c63-11eb-81bd-307eb7d15f11.jpg)
+
 User can swipe through the application.
 
 
