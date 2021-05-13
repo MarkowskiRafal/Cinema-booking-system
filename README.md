@@ -56,9 +56,11 @@ screening times. The app was tested on mobile devices.
 ![Bez tytułu](https://user-images.githubusercontent.com/46786100/114559690-49978580-9c6c-11eb-804c-f29a3514f906.jpg)
 
 
-### Admin can do CRUD operations on movies and repertoires:
+### Admin can do CRUD operations on movies:
 
 ![image](https://user-images.githubusercontent.com/46786100/118122724-897c9480-b3f3-11eb-80e2-68b3c32df913.png)
+
+### And repertoires:
 
 ![image](https://user-images.githubusercontent.com/46786100/118122876-bfba1400-b3f3-11eb-8d93-87a1894c7d38.png)
 
