@@ -40,36 +40,43 @@ screening times. The app was tested on mobile devices.
 - User registration validation: each field must be entered correctly.
 - User must confirm his registration to the e-mail adress he provided.
 
-
-#### The repertoire of movies any user can browse:
+<p align="center">
+ 
+### The repertoire of movies any user can browse:</p>
 
 ![Bez tytułu](https://user-images.githubusercontent.com/46786100/114559778-5e741900-9c6c-11eb-88d1-7e5d841da45f.jpg)
 
-#### The next step is to select a time:
+<p align="center">
+ 
+### The next step is to select a time:</p>
 
-![image](https://user-images.githubusercontent.com/46786100/118122560-50dcbb00-b3f3-11eb-9ac8-126ebe7d91ef.png)
+![image](https://user-images.githubusercontent.com/46786100/118123187-30613080-b3f4-11eb-9e17-6b9501da1884.png)
 
-#### Final reservation:
+<p align="center">
+ 
+### Final reservation:</p>
 
 ![Bez tytułu](https://user-images.githubusercontent.com/46786100/114559690-49978580-9c6c-11eb-804c-f29a3514f906.jpg)
 
-#### Admin can do CRUD operations on movies and repertoires:
+### Admin can do CRUD operations on movies and repertoires:
 
 ![image](https://user-images.githubusercontent.com/46786100/118122724-897c9480-b3f3-11eb-80e2-68b3c32df913.png)
 
 ![image](https://user-images.githubusercontent.com/46786100/118122876-bfba1400-b3f3-11eb-8d93-87a1894c7d38.png)
 
-#### Menu for user:
+### Menu for user:
 
 ![image](https://user-images.githubusercontent.com/46786100/118122954-dbbdb580-b3f3-11eb-8384-030a388820d2.png)
 
-#### Menu for admin:
+### Menu for admin:
 
 ![image](https://user-images.githubusercontent.com/46786100/118122986-e2e4c380-b3f3-11eb-96a3-305d48c28eb2.png)
 
-#### The app should also behave properly on mobile devices
+### The app should also behave properly on mobile devices
 
 ![172990822_260064565770636_2167538867048692561_n](https://user-images.githubusercontent.com/46786100/114551398-a0e52800-9c63-11eb-81bd-307eb7d15f11.jpg)
+
+User can swipe through the application.
 
 
 ## TO-DO
