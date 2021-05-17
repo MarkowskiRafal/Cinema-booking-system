@@ -39,6 +39,7 @@ screening times. The app was tested on mobile devices.
 - Logged in users can reserve seats.
 - User registration validation: each field must be entered correctly.
 - User must confirm his registration to the e-mail adress he provided.
+- Seats are divided into reserved(green) and unreserved(red).
 
  
 ### The repertoire of movies any user can browse:
