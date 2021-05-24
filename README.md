@@ -37,6 +37,7 @@ screening times. The app was tested on mobile devices.
 - Admin can add, edit and delete the day and time when a particular movie will be playing in the cinema.
 - Non logged in users can register and login to the application.
 - Logged in users can reserve seats.
+- Seats validation: user cannot reserve the entire cinema hall or leave a seat empty.
 - User registration validation: each field must be entered correctly.
 - User must confirm his registration to the e-mail adress he provided.
 - Seats are divided into reserved(green) and unreserved(red).
