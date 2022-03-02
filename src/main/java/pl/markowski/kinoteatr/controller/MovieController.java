@@ -1,139 +1,103 @@
 package pl.markowski.kinoteatr.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import pl.markowski.kinoteatr.model.Movie;
 import pl.markowski.kinoteatr.model.Repertoire;
-import pl.markowski.kinoteatr.repo.MovieRepo;
-import pl.markowski.kinoteatr.repo.RepertoireRepo;
-
-import java.util.List;
+import pl.markowski.kinoteatr.service.MovieService;
 
 @Controller
-@RequestMapping("/movies")
+@RequiredArgsConstructor
+class MovieController {
 
-public class MovieController {
+    static final class Routes {
+        static final String ROOT = "/movies";
+        static final String ADMIN = ROOT + "/admin";
+        static final String MOVIE_NAME = ADMIN + "/{movieName}";
 
-    private MovieRepo movieRepo;
-    private RepertoireRepo repertoireRepo;
-
-    @Autowired
-    public MovieController(MovieRepo movieRepo, RepertoireRepo repertoireRepo) {
-        this.movieRepo = movieRepo;
-        this.repertoireRepo = repertoireRepo;
+        static final String LIST = ROOT + "/list";
+        static final String FORM = ROOT + "/showForm";
+        static final String ADD = ROOT + "/add";
+        static final String EDIT = ROOT + "/edit/{id}";
+        static final String UPDATE = ROOT + "/update/{id}";
+        static final String DELETE = ROOT + "/delete/{id}";
+        static final String ADD_REPERTOIRE = ADMIN + "/newRepertoire";
+        static final String NEW_REPERTOIRE = MOVIE_NAME + "/newRepertoire";
+        static final String UPDATE_REPERTOIRE_ID = MOVIE_NAME + "/updateRepertoire/{repertoireId}";
+        static final String UPDATE_REPERTOIRE = ADMIN + "/updateRepertoire";
+        static final String DELETE_REPERTOIRE = ADMIN + "/deleteRepertoire/{repertoireId}";
     }
 
+    private final MovieService movieService;
 
-    @GetMapping("list")
-    public String getMovies(Model model) {
-        model.addAttribute("movies", movieRepo.findAll());
-        return "movieIndex";
+    @GetMapping(Routes.LIST)
+    String getMovies(final Model model) {
+        return movieService.getMovies(model);
     }
 
-    @GetMapping("showForm")
-    public String showMovieForm(Movie movie) {
+    @GetMapping(Routes.FORM)
+    String showMovieForm(final Movie movie) {
         return "add-movie";
     }
 
-    @PostMapping("add")
-    public String movies(@Validated Movie movie, BindingResult result, Model model) {
-        if(result.hasErrors()) {
-            return "add-movie";
-        }
-
-        movieRepo.save(movie);
-        return "redirect:/movies/list";
+    @PostMapping(Routes.ADD)
+    String addMovie(@Validated final Movie movie, final BindingResult result, final Model model) {
+        return movieService.addMovie(movie, result, model);
     }
 
-    @GetMapping("edit/{id}")
-    public String showUpdateFormMovie(@PathVariable ("id") long id, Model model) {
-        Movie movie = movieRepo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Nieprawidłowe ID: " + id));
-
-        model.addAttribute("movie", movie);
-        return "update-movie";
+    @GetMapping(Routes.EDIT)
+    String showUpdateFormMovie(@PathVariable("id") final long id, final Model model) {
+        return movieService.showUpdateFormMovie(id, model);
     }
 
-    @PostMapping("update/{id}")
+    @PostMapping(Routes.UPDATE)
     @Transactional
-    public String updateMovie(@PathVariable("id") long id, @Validated Movie movie) {
-
-        Movie movieFromDb = movieRepo.getOne(id);
-        movieFromDb.setCategory(movie.getCategory());
-        movieFromDb.setDescription(movie.getDescription());
-        movieFromDb.setLenght(movie.getLenght());
-        movieFromDb.setMinAge(movie.getMinAge());
-        movieFromDb.setImageUrl(movie.getImageUrl());
-        movieFromDb.setTitle(movie.getTitle());
-
-        return "redirect:/movies/list";
+    String updateMovie(@PathVariable("id") final long id, @Validated final Movie movie) {
+        return movieService.updateMovie(id, movie);
     }
 
-    @GetMapping("delete/{id}")
-    public String deleteMovie(@PathVariable ("id") long id, Model model) {
-
-        List<Repertoire> repertoires = repertoireRepo.findByMovieId(id);
-        repertoires.forEach(r -> repertoireRepo.deleteById(r.getId()));
-
-        Movie movie = movieRepo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Nieprawidłowe ID : " + id));
-
-        movieRepo.delete(movie);
-        model.addAttribute("movies", movieRepo.findAll());
-        return "movieIndex";
+    @GetMapping(Routes.DELETE)
+    String deleteMovie(@PathVariable("id") final long id, final Model model) {
+        return movieService.deleteMovie(id, model);
     }
 
-    @GetMapping("/admin/{movieName}/newRepertoire")
-    public String showMovieRepertoireForm(Model model, @PathVariable ("movieName") String movieName) {
-
-        Movie movieRepertoire = movieRepo.findByTitle(movieName);
-        model.addAttribute("movieRepertoire", movieRepertoire);
-        model.addAttribute("repertoire", new Repertoire());
-        return "movie-repertoire";
+    @GetMapping(Routes.NEW_REPERTOIRE)
+    String showMovieRepertoireForm(@PathVariable("movieName") final String movieName, final Model model) {
+        return movieService.showMovieRepertoireForm(movieName, model);
     }
 
-    @PostMapping("/admin/newRepertoire")
+    @PostMapping(Routes.ADD_REPERTOIRE)
     @Transactional
-    public String addMovieRepertoire(@ModelAttribute ("repertoire") Repertoire repertoire,
-                                @ModelAttribute("movieId") Long movieId, BindingResult result) {
-
-        repertoire.setMovie(movieRepo.getOne(movieId));
-        repertoireRepo.save(repertoire) ;
-        return "redirect:/movies/list";
+    String addMovieRepertoire(@ModelAttribute("repertoire") final Repertoire repertoire,
+                              @ModelAttribute("movieId") final Long movieId, final BindingResult result) {
+        return movieService.addMovieRepertoire(repertoire, movieId, result);
     }
 
-    @GetMapping("/admin/{movieName}/updateRepertoire/{repertoireId}")
-    public String showUpdateMovieRepertoireForm(Model model, @PathVariable ("movieName") String movieName,
-                                           @PathVariable("repertoireId") Long repertoireId) {
-
-        Repertoire repertoire = repertoireRepo.getOne(repertoireId);
-        Movie movieRepertoire = movieRepo.findByTitle(movieName);
-        model.addAttribute("movieRepertoire", movieRepertoire);
-        model.addAttribute("repertoire", repertoire);
-        return "movie-repertoire";
+    @GetMapping(Routes.UPDATE_REPERTOIRE_ID)
+    String showUpdateMovieRepertoireForm(@PathVariable("movieName") final String movieName,
+                                         @PathVariable("repertoireId") final Long repertoireId, final Model model) {
+        return movieService.showUpdateMovieRepertoireForm(movieName, repertoireId, model);
     }
 
-    @PostMapping("/admin/updateRepertoire")
+    @PostMapping(Routes.UPDATE_REPERTOIRE)
     @Transactional
-    public String updateMovieRepertoire(@ModelAttribute ("repertoire") Repertoire repertoire,
-                                @ModelAttribute("movieId") Long movieId,
-                                @ModelAttribute("repertoireId") Long repertoireId, BindingResult result) {
-
-        Repertoire repertoireFromDb = repertoireRepo.getOne(repertoireId);
-        repertoireFromDb.setDate(repertoire.getDate());
-        return "redirect:/movies/list";
+    String updateMovieRepertoire(@ModelAttribute("repertoire") final Repertoire repertoire,
+                                 @ModelAttribute("movieId") final Long movieId,
+                                 @ModelAttribute("repertoireId") final Long repertoireId, final BindingResult result) {
+        return movieService.updateMovieRepertoire(repertoire, repertoireId, result);
     }
 
-    @GetMapping("/admin/deleteRepertoire/{repertoireId}")
+    @GetMapping(Routes.DELETE_REPERTOIRE)
     @Transactional
-    public String deleteMovieRepertoire(Model model, @PathVariable("repertoireId") Long repertoireId) {
-
-        repertoireRepo.deleteById(repertoireId);
-        return "redirect:/movies/list";
+    String deleteMovieRepertoire(@PathVariable("repertoireId") final Long repertoireId, final Model model) {
+        return movieService.deleteMovieRepertoire(repertoireId, model);
     }
 }
