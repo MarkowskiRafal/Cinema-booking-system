@@ -1,65 +1,41 @@
 package pl.markowski.kinoteatr.controller;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.markowski.kinoteatr.model.AppUser;
+import pl.markowski.kinoteatr.model.User;
 import pl.markowski.kinoteatr.service.UserService;
 
 import javax.validation.Valid;
 import java.security.Principal;
 
-
 @Controller
+@RequiredArgsConstructor
 public class UserController {
 
-
-    private UserService userService;
-
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    static final class Routes {
+        static final String LOGIN = "/login";
+        static final String REGISTER = "/register";
     }
 
-    @GetMapping("/login")
-    public String login(Principal principal) {
-        if (principal!=null && ((Authentication)principal).isAuthenticated()) {
-            return "forward:/";
-        }
-        return "login";
+    private final UserService userService;
+
+    @GetMapping(Routes.LOGIN)
+    public String login(final Principal principal) {
+        return userService.login(principal);
     }
 
-    @GetMapping("/register")
-    public String register(@ModelAttribute AppUser appUser, Model model) {
-        model.addAttribute("appUser", new AppUser());
-        return "register";
+    @GetMapping(Routes.REGISTER)
+    public String register(@ModelAttribute final User user, final Model model) {
+        return userService.register(model);
     }
 
-    @PostMapping("/register")
-    public String registerOk(@Valid @ModelAttribute("appUser") AppUser appUser, BindingResult bindingResult) {
-
-        if (userService.appUserUsernameExists(appUser.getUsername())) {
-            bindingResult.addError(new FieldError
-                    ("appUser", "username", "Podany login już istnieje"));
-        }
-
-        if (userService.appUserEmailExists(appUser.getEmail())) {
-            bindingResult.addError(new FieldError
-                    ("appUser", "email", "Podany adres e-mail już istnieje"));
-        }
-
-        if (bindingResult.hasErrors()) {
-            return "register";
-        } else {
-            userService.addUser(appUser);
-            return "redirect:register?success";
-        }
+    @PostMapping(Routes.REGISTER)
+    public String registerOk(@Valid @ModelAttribute("user") final User user, final BindingResult bindingResult) {
+        return userService.registerSuccessfully(user, bindingResult);
     }
 }

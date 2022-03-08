@@ -1,136 +1,102 @@
 package pl.markowski.kinoteatr.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import pl.markowski.kinoteatr.model.Repertoire;
 import pl.markowski.kinoteatr.model.Spectacle;
-import pl.markowski.kinoteatr.repo.RepertoireRepo;
-import pl.markowski.kinoteatr.repo.SpectacleRepo;
-
-import java.util.List;
+import pl.markowski.kinoteatr.service.SpectacleService;
 
 @Controller
-@RequestMapping("/spectacles")
+@RequiredArgsConstructor
+class SpectacleController {
 
-public class SpectacleController {
-
-    private SpectacleRepo spectacleRepo;
-    private RepertoireRepo repertoireRepo;
-
-    @Autowired
-    public SpectacleController(SpectacleRepo spectacleRepo, RepertoireRepo repertoireRepo) {
-        this.spectacleRepo = spectacleRepo;
-        this.repertoireRepo = repertoireRepo;
+    static final class Routes {
+        static final String ROOT = "/spectacles";
+        static final String ADMIN = ROOT + "/admin";
+        static final String SPECTACLE_NAME = ADMIN + "/{spectacleName}";
+        static final String LIST = ROOT + "/list";
+        static final String FORM = ROOT + "/showForm";
+        static final String ADD = ROOT + "/add";
+        static final String EDIT = ROOT + "/edit/{id}";
+        static final String UPDATE = ROOT + "/update/{id}";
+        static final String DELETE = ROOT + "/delete/{id}";
+        static final String ADD_REPERTOIRE = ADMIN + "/newRepertoire";
+        static final String NEW_REPERTOIRE = SPECTACLE_NAME + "/newRepertoire";
+        static final String UPDATE_REPERTOIRE_ID = SPECTACLE_NAME + "/updateRepertoire/{repertoireId}";
+        static final String UPDATE_REPERTOIRE = ADMIN + "/updateRepertoire";
+        static final String DELETE_REPERTOIRE = ADMIN + "/deleteRepertoire/{repertoireId}";
     }
 
+    private final SpectacleService spectacleService;
 
-    @GetMapping("list")
-    public String getSpectacles(Model model) {
-        model.addAttribute("spectacles", spectacleRepo.findAll());
-        return "spectacleIndex";
+    @GetMapping(Routes.LIST)
+    public String getSpectacles(final Model model) {
+        return spectacleService.getSpectacles(model);
     }
 
-    @GetMapping("showForm")
-    public String showSpectacleForm(Spectacle spectacle) {
+    @GetMapping(Routes.FORM)
+    public String showSpectacleForm(final Spectacle spectacle) {
         return "add-spectacle";
     }
 
-    @PostMapping("add")
-    public String spectacles(@Validated Spectacle spectacle, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "add-spectacle";
-        }
-
-        spectacleRepo.save(spectacle);
-        return "redirect:/spectacles/list";
+    @PostMapping(Routes.ADD)
+    public String addSpectacle(@Validated final Spectacle spectacle, final BindingResult result, final Model model) {
+        return spectacleService.addSpectacle(spectacle, result, model);
     }
 
-    @GetMapping("edit/{id}")
-    public String showUpdateFormSpectacle(@PathVariable("id") long id, Model model) {
-        Spectacle spectacle = spectacleRepo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Nieprawidłowe ID: " + id));
-
-        model.addAttribute("spectacle", spectacle);
-        return "update-spectacle";
+    @GetMapping(Routes.EDIT)
+    public String showUpdateFormSpectacle(@PathVariable("id") final long id, final Model model) {
+        return spectacleService.showUpdateFormSpectacle(id, model);
     }
 
-    @PostMapping("update/{id}")
+    @PostMapping(Routes.UPDATE)
     @Transactional
-    public String updateSpectacle(@PathVariable("id") long id, @Validated Spectacle spectacle) {
-
-        Spectacle spectacleFromDb = spectacleRepo.getOne(id);
-        spectacleFromDb.setDescription(spectacle.getDescription());
-        spectacleFromDb.setImageUrl(spectacle.getImageUrl());
-        spectacleFromDb.setLenght(spectacle.getLenght());
-        spectacleFromDb.setMinAge(spectacle.getMinAge());
-        spectacleFromDb.setTitle(spectacle.getTitle());
-
-        return "redirect:/spectacles/list";
+    public String updateSpectacle(@PathVariable("id") final long id, @Validated final Spectacle spectacle) {
+        return spectacleService.updateSpectacle(id, spectacle);
     }
 
-    @GetMapping("delete/{id}")
-    public String deleteSpectacle(@PathVariable("id") long id, Model model) {
-
-        List<Repertoire> repertoires = repertoireRepo.findBySpectacleId(id);
-        repertoires.forEach(r -> repertoireRepo.deleteById(r.getId()));
-
-        Spectacle spectacle = spectacleRepo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Nieprawidłowe ID : " + id));
-
-        spectacleRepo.delete(spectacle);
-        model.addAttribute("spectacles", spectacleRepo.findAll());
-        return "spectacleIndex";
+    @GetMapping(Routes.DELETE)
+    public String deleteSpectacle(@PathVariable("id") final long id, final Model model) {
+        return spectacleService.deleteSpectacle(id, model);
     }
 
-    @GetMapping("/admin/{spectacleName}/newRepertoire")
-    public String showSpectacleRepertoireForm(Model model, @PathVariable ("spectacleName") String spectacleName) {
-
-        Spectacle spectacleRepertoire = spectacleRepo.findByTitle(spectacleName);
-        model.addAttribute("spectacleRepertoire", spectacleRepertoire);
-        model.addAttribute("repertoire", new Repertoire());
-        return "spectacle-repertoire";
+    @GetMapping(Routes.NEW_REPERTOIRE)
+    public String showSpectacleRepertoireForm(@PathVariable("spectacleName") final String spectacleName, final Model model) {
+        return spectacleService.showSpectacleRepertoireForm(spectacleName, model);
     }
 
-    @PostMapping("/admin/newRepertoire")
+    @PostMapping(Routes.ADD_REPERTOIRE)
     @Transactional
-    public String addSpectacleRepertoire(@ModelAttribute ("repertoire") Repertoire repertoire,
-                                @ModelAttribute("spectacleId") Long spectacleId, BindingResult result) {
-
-        repertoire.setSpectacle(spectacleRepo.getOne(spectacleId));
-        repertoireRepo.save(repertoire) ;
-        return "redirect:/spectacles/list";
+    public String addSpectacleRepertoire(@ModelAttribute("repertoire") final Repertoire repertoire,
+                                  @ModelAttribute("spectacleId") final Long spectacleId, final BindingResult result) {
+        return spectacleService.addSpectacleRepertoire(repertoire, spectacleId, result);
     }
 
-    @GetMapping("/admin/{spectacleName}/updateRepertoire/{repertoireId}")
-    public String showUpdateSpectacleRepertoireForm(Model model, @PathVariable ("spectacleName") String spectacleName,
-                                           @PathVariable("repertoireId") Long repertoireId) {
-
-        Repertoire repertoire = repertoireRepo.getOne(repertoireId);
-        Spectacle spectacleRepertoire = spectacleRepo.findByTitle(spectacleName);
-        model.addAttribute("spectacleRepertoire", spectacleRepertoire);
-        model.addAttribute("repertoire", repertoire);
-        return "spectacle-repertoire";
+    @GetMapping(Routes.UPDATE_REPERTOIRE_ID)
+    public String showUpdateSpectacleRepertoireForm(@PathVariable("spectacleName") final String spectacleName,
+                                             @PathVariable("repertoireId") final Long repertoireId, final Model model) {
+        return spectacleService.showUpdateSpectacleRepertoireForm(spectacleName, repertoireId, model);
     }
 
-    @PostMapping("/admin/updateRepertoire")
+    @PostMapping(Routes.UPDATE_REPERTOIRE)
     @Transactional
-    public String updateSpectacleRepertoire(@ModelAttribute ("repertoire") Repertoire repertoire,
-                                   @ModelAttribute("spectacleId") Long spectacleId,
-                                   @ModelAttribute("repertoireId") Long repertoireId) {
-        Repertoire repertoireFromDb = repertoireRepo.getOne(repertoireId);
-        repertoireFromDb.setDate(repertoire.getDate());
-        return "redirect:/spectacles/list";
+    public String updateSpectacleRepertoire(@ModelAttribute("repertoire") final Repertoire repertoire,
+                                     @ModelAttribute("spectacleId") final Long spectacleId,
+                                     @ModelAttribute("repertoireId") final Long repertoireId, final BindingResult result) {
+        return spectacleService.updateSpectacleRepertoire(repertoire, repertoireId, result);
     }
 
-    @GetMapping("/admin/deleteRepertoire/{repertoireId}")
+    @GetMapping(Routes.DELETE_REPERTOIRE)
     @Transactional
-    public String deleteSpectacleRepertoire(@PathVariable("repertoireId") Long repertoireId) {
-        repertoireRepo.deleteById(repertoireId);
-        return "redirect:/spectacles/list";
+    public String deleteSpectacleRepertoire(@PathVariable("repertoireId") final Long repertoireId, final Model model) {
+        return spectacleService.deleteSpectacleRepertoire(repertoireId, model);
     }
 }

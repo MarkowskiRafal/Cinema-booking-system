@@ -1,6 +1,6 @@
-package pl.markowski.kinoteatr.security;
+package pl.markowski.kinoteatr.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -9,30 +9,26 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import pl.markowski.kinoteatr.service.UserDetailsServiceImpl;
+import pl.markowski.kinoteatr.service.impl.UserDetailsServiceImpl;
 
 @Configuration
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+@RequiredArgsConstructor
+class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    private final UserDetailsServiceImpl userDetailsService;
 
     @Bean
-    public PasswordEncoder getpasswordEncoder() {
+    public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    private UserDetailsServiceImpl userDetailsService;
-
-    @Autowired
-    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
-
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(final HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.headers().disable();
         http.authorizeRequests()
@@ -49,10 +45,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/spectacles/add").hasRole("ADMIN")
                 .antMatchers("/movies/admin/*/newRepertoire").hasRole("ADMIN")
                 .antMatchers("/console/*").hasRole("ADMIN")
-                .antMatchers("/movies/*/reservation").hasAnyRole("USER","ADMIN")
-                .antMatchers("/movies/*/reservation/*").hasAnyRole("USER","ADMIN")
-                .antMatchers("/spectacles/*/reservation").hasAnyRole("USER","ADMIN")
-                .antMatchers("/spectacles/*/reservation/*").hasAnyRole("USER","ADMIN")
+                .antMatchers("/movies/*/reservation").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/movies/*/reservation/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/spectacles/*/reservation").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/spectacles/*/reservation/*").hasAnyRole("USER", "ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login")

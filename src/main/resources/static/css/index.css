@@ -6,7 +6,6 @@ body {
 
 }
 
-
 .topnav {
     overflow: hidden;
     background-color: rgba(51, 51, 51, 0.7)
@@ -59,5 +58,3 @@ body {
 span.invalid-feedback {
     color: red;
 }
-
-

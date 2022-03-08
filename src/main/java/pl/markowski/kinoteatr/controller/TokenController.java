@@ -1,53 +1,44 @@
 package pl.markowski.kinoteatr.controller;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.markowski.kinoteatr.model.AppUser;
-import pl.markowski.kinoteatr.model.Token;
-import pl.markowski.kinoteatr.repo.AppUserRepo;
-import pl.markowski.kinoteatr.repo.TokenRepo;
+import pl.markowski.kinoteatr.service.TokenService;
 
 import java.security.Principal;
 
-
 @Controller
-public class TokenController {
+@RequiredArgsConstructor
+class TokenController {
 
-    private TokenRepo tokenRepo;
-    private AppUserRepo appUserRepo;
-
-    @Autowired
-    public TokenController(TokenRepo tokenRepo, AppUserRepo appUserRepo) {
-        this.tokenRepo = tokenRepo;
-        this.appUserRepo = appUserRepo;
+    static final class Routes {
+        static final String TOKEN = "/token";
+        static final String HELLO = "/hello";
+        static final String SUCCESSFUL = "/successful";
+        static final String UNSUCCESSFUL = "/unsuccessful";
     }
 
-    @GetMapping("/token")
-    public String singup(@RequestParam String value) {
-        Token byValue = tokenRepo.findByValue(value);
-        AppUser appUser = byValue.getAppUser();
-        appUser.setEnabled(true);
-        appUserRepo.save(appUser);
-        return "hello";
+    private final TokenService tokenService;
+
+    @GetMapping(Routes.TOKEN)
+    String signUp(@RequestParam final String value) {
+        return tokenService.signUp(value);
     }
 
-    @GetMapping("/hello")
-    public String hello(Principal principal, Model model) {
-        model.addAttribute("name", principal.getName());
-        return "hello";
+    @GetMapping(Routes.HELLO)
+    String welcome(final Principal principal, final Model model) {
+        return tokenService.welcome(principal, model);
     }
 
-    @GetMapping("/successful")
-    public String successful() {
+    @GetMapping(Routes.SUCCESSFUL)
+    String successful() {
         return "successful";
     }
 
-    @GetMapping("/unsuccessful")
-    public String unsuccessful() {
+    @GetMapping(Routes.UNSUCCESSFUL)
+    String unsuccessful() {
         return "unsuccessful";
     }
 }

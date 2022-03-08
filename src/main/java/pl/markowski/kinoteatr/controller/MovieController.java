@@ -22,7 +22,6 @@ class MovieController {
         static final String ROOT = "/movies";
         static final String ADMIN = ROOT + "/admin";
         static final String MOVIE_NAME = ADMIN + "/{movieName}";
-
         static final String LIST = ROOT + "/list";
         static final String FORM = ROOT + "/showForm";
         static final String ADD = ROOT + "/add";
@@ -39,65 +38,65 @@ class MovieController {
     private final MovieService movieService;
 
     @GetMapping(Routes.LIST)
-    String getMovies(final Model model) {
+    public String getMovies(final Model model) {
         return movieService.getMovies(model);
     }
 
     @GetMapping(Routes.FORM)
-    String showMovieForm(final Movie movie) {
+    public String showMovieForm(final Movie movie) {
         return "add-movie";
     }
 
     @PostMapping(Routes.ADD)
-    String addMovie(@Validated final Movie movie, final BindingResult result, final Model model) {
+    public String addMovie(@Validated final Movie movie, final BindingResult result, final Model model) {
         return movieService.addMovie(movie, result, model);
     }
 
     @GetMapping(Routes.EDIT)
-    String showUpdateFormMovie(@PathVariable("id") final long id, final Model model) {
+    public String showUpdateFormMovie(@PathVariable("id") final long id, final Model model) {
         return movieService.showUpdateFormMovie(id, model);
     }
 
     @PostMapping(Routes.UPDATE)
     @Transactional
-    String updateMovie(@PathVariable("id") final long id, @Validated final Movie movie) {
+    public String updateMovie(@PathVariable("id") final long id, @Validated final Movie movie) {
         return movieService.updateMovie(id, movie);
     }
 
     @GetMapping(Routes.DELETE)
-    String deleteMovie(@PathVariable("id") final long id, final Model model) {
+    public String deleteMovie(@PathVariable("id") final long id, final Model model) {
         return movieService.deleteMovie(id, model);
     }
 
     @GetMapping(Routes.NEW_REPERTOIRE)
-    String showMovieRepertoireForm(@PathVariable("movieName") final String movieName, final Model model) {
+    public String showMovieRepertoireForm(@PathVariable("movieName") final String movieName, final Model model) {
         return movieService.showMovieRepertoireForm(movieName, model);
     }
 
     @PostMapping(Routes.ADD_REPERTOIRE)
     @Transactional
-    String addMovieRepertoire(@ModelAttribute("repertoire") final Repertoire repertoire,
-                              @ModelAttribute("movieId") final Long movieId, final BindingResult result) {
+    public String addMovieRepertoire(@ModelAttribute("repertoire") final Repertoire repertoire,
+                                     @ModelAttribute("movieId") final Long movieId, final BindingResult result) {
         return movieService.addMovieRepertoire(repertoire, movieId, result);
     }
 
     @GetMapping(Routes.UPDATE_REPERTOIRE_ID)
-    String showUpdateMovieRepertoireForm(@PathVariable("movieName") final String movieName,
-                                         @PathVariable("repertoireId") final Long repertoireId, final Model model) {
+    public String showUpdateMovieRepertoireForm(@PathVariable("movieName") final String movieName,
+                                                @PathVariable("repertoireId") final Long repertoireId, final Model model) {
         return movieService.showUpdateMovieRepertoireForm(movieName, repertoireId, model);
     }
 
     @PostMapping(Routes.UPDATE_REPERTOIRE)
     @Transactional
-    String updateMovieRepertoire(@ModelAttribute("repertoire") final Repertoire repertoire,
-                                 @ModelAttribute("movieId") final Long movieId,
-                                 @ModelAttribute("repertoireId") final Long repertoireId, final BindingResult result) {
+    public String updateMovieRepertoire(@ModelAttribute("repertoire") final Repertoire repertoire,
+                                        @ModelAttribute("movieId") final Long movieId,
+                                        @ModelAttribute("repertoireId") final Long repertoireId, final BindingResult result) {
         return movieService.updateMovieRepertoire(repertoire, repertoireId, result);
     }
 
     @GetMapping(Routes.DELETE_REPERTOIRE)
     @Transactional
-    String deleteMovieRepertoire(@PathVariable("repertoireId") final Long repertoireId, final Model model) {
+    public String deleteMovieRepertoire(@PathVariable("repertoireId") final Long repertoireId, final Model model) {
         return movieService.deleteMovieRepertoire(repertoireId, model);
     }
 }

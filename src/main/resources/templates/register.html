@@ -11,7 +11,7 @@
 
 <div th:replace="index :: nav"></div>
 
-<form class="box" th:action="@{/register}" method="post" th:object="${appUser}">
+<form class="box" th:action="@{/register}" method="post" th:object="${user}">
     <div th:if="${param.success}">
         <div class="alert alert-info"><span style="color: white">Rejestracja przebiegła pomyślnie. Sprawdź podany adres e-mail
         w celu aktywacji konta.</span></div>

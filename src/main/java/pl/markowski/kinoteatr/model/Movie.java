@@ -1,14 +1,23 @@
 package pl.markowski.kinoteatr.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "movie")
+@NoArgsConstructor
 public class Movie {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,19 +25,22 @@ public class Movie {
     @Column(name = "id")
     private Long id;
 
-    @Column(unique = true)
+    @Column(name = "title", unique = true, nullable = false)
     private String title;
 
+    @Column(name = "category", nullable = false)
     private String category;
-    @Column(columnDefinition = "TEXT")
 
+    @Column(name = "description", columnDefinition = "TEXT", nullable = false)
     private String description;
 
-    private Integer lenght;
+    @Column(name = "length", nullable = false)
+    private Integer length;
 
+    @Column(name = "min_age", nullable = false)
     private Integer minAge;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "image_url", columnDefinition = "TEXT", nullable = false)
     private String imageUrl;
 
     @OneToMany(mappedBy = "movie", orphanRemoval = true)
@@ -36,8 +48,4 @@ public class Movie {
 
     @OneToMany(mappedBy = "movie", orphanRemoval = true)
     private List<Repertoire> repertoires;
-
-
-    public Movie() {
-   }
 }

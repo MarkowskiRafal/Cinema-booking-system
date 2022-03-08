@@ -1,23 +1,29 @@
 package pl.markowski.kinoteatr.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import pl.markowski.kinoteatr.model.Movie;
-import pl.markowski.kinoteatr.repo.MovieRepo;
+import pl.markowski.kinoteatr.model.Repertoire;
 
+public interface MovieService {
 
-@Service
+    String getMovies(final Model model);
 
-public class MovieService {
+    String addMovie(final Movie movie, final BindingResult result, final Model model);
 
-    private MovieRepo movieRepo;
+    String showUpdateFormMovie(final long id, final Model model);
 
-    @Autowired
-    public MovieService(MovieRepo movieRepo) {
-        this.movieRepo = movieRepo;
-    }
+    String updateMovie(final long id, final Movie movie);
 
-    public Movie save(Movie movie) {
-        return movieRepo.save(movie);
-    }
+    String deleteMovie(final long id, final Model model);
+
+    String showMovieRepertoireForm(final String movieName, final Model model);
+
+    String addMovieRepertoire(final Repertoire repertoire, final Long movieId, final BindingResult result);
+
+    String showUpdateMovieRepertoireForm(final String movieName, final Long repertoireId, final Model model);
+
+    String updateMovieRepertoire(final Repertoire repertoire, final Long repertoireId, final BindingResult result);
+
+    String deleteMovieRepertoire(final Long repertoireId, final Model model);
 }

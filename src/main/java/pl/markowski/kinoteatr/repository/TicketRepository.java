@@ -1,4 +1,4 @@
-package pl.markowski.kinoteatr.repo;
+package pl.markowski.kinoteatr.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface TicketRepo extends JpaRepository<Ticket, Long> {
+public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
-    Optional<Ticket> findByUuid(UUID uuid);
+    Optional<Ticket> findByUuid(final UUID uuid);
 }

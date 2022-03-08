@@ -14,7 +14,7 @@ https://kinoteatr-app.herokuapp.com
 
 ## About
 This project aimed to broaden the knowledge of programming and the use of my knowledge in practice. The main goal was to create a modern application that is functional and
-fault-tolerant. This application is used to book seats in a cinema. Users can browse the repertoire, select a day and time, and then reserve seats. The seats are divided into
+fault-tolerant. This application is used to book seats in a cinema. Users can browse the repertoire, select a day and time, and then reserveSeatConfiguration seats. The seats are divided into
 already reserved and unreserved. All data is stored in the database. Users can register and log into the system. Administrator is able to do CRUD operations on movies and
 screening times. The app was tested on mobile devices.
 
@@ -36,8 +36,8 @@ screening times. The app was tested on mobile devices.
 - Additional menu with more options for admin who can add, edit and delete movies.
 - Admin can add, edit and delete the day and time when a particular movie will be playing in the cinema.
 - Non logged in users can register and login to the application.
-- Logged in users can reserve seats.
-- Seats validation: user cannot reserve the entire cinema hall or leave a seat empty.
+- Logged in users can reserveSeatConfiguration seats.
+- Seats validation: user cannot reserveSeatConfiguration the entire cinema hall or leave a seat empty.
 - User registration validation: each field must be entered correctly.
 - User must confirm his registration to the e-mail adress he provided.
 - Seats are divided into reserved(green) and unreserved(red).

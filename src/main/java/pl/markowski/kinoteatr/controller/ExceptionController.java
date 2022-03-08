@@ -10,13 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class ExceptionController {
 
-    private Log logger = LogFactory.getLog(ExceptionController.class);
+    private final Log log = LogFactory.getLog(ExceptionController.class);
 
     @ExceptionHandler(Exception.class)
-    public String handleException(HttpServletRequest request, Exception ex){
-        logger.error("Error", ex);
-        System.out.println(ex.getMessage());
+    public String handleException(final HttpServletRequest request, final Exception exception) {
+        log.error("Error", exception);
+        System.out.println(exception.getMessage());
         return "error";
     }
-
 }

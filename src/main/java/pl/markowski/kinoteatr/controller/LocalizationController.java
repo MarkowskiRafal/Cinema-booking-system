@@ -6,7 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class LocalizationController {
 
-    @GetMapping("/localization")
+    static final class Routes {
+        static final String LOCALIZATION = "/localization";
+    }
+
+    @GetMapping(Routes.LOCALIZATION)
     public String localization() {
         return "localization";
     }

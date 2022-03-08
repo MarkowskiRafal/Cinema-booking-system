@@ -1,4 +1,4 @@
-package pl.markowski.kinoteatr.service;
+package pl.markowski.kinoteatr.model;
 
 import lombok.Data;
 

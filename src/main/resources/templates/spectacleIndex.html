@@ -47,7 +47,7 @@
                             <tr>
                                 <td><img class="image" th:src="${spectacle.imageUrl}"></td>
                                 <td th:text="${spectacle.title}"></td>
-                                <td th:text="${spectacle.lenght} + ' minut'"></td>
+                                <td th:text="${spectacle.length} + ' minut'"></td>
                                 <td th:text="'Od ' + ${spectacle.minAge} + ' lat'"></td>
                                 <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/spectacles/edit/{id}(id=${spectacle.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
                                 <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/spectacles/delete/{id}(id=${spectacle.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>

@@ -1,13 +1,14 @@
-package pl.markowski.kinoteatr.service;
+package pl.markowski.kinoteatr.model;
 
 import lombok.Data;
+
 import java.util.Map;
 
 @Data
-public class Reserve {
+public class ReserveSeatConfiguration {
 
     private SeatReservation seatReservation;
-    private Map<String,Boolean> map;
+    private Map<String, Boolean> map;
 
     private Long id;
     private String string;
@@ -16,5 +17,4 @@ public class Reserve {
     public boolean isActive() {
         return active;
     }
-
 }

@@ -1,34 +1,29 @@
 package pl.markowski.kinoteatr.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import pl.markowski.kinoteatr.model.Repertoire;
 import pl.markowski.kinoteatr.model.Spectacle;
-import pl.markowski.kinoteatr.repo.SpectacleRepo;
 
-import java.util.Optional;
+public interface SpectacleService {
 
-public class SpectacleService {
+    String getSpectacles(final Model model);
 
-    private SpectacleRepo spectacleRepo;
+    String addSpectacle(final Spectacle spectacle, final BindingResult result, final Model model);
 
-    @Autowired
-    public SpectacleService(SpectacleRepo spectacleRepo) {
-        this.spectacleRepo = spectacleRepo;
-    }
+    String showUpdateFormSpectacle(final long id, final Model model);
 
-    public Iterable<Spectacle> findAll() {
-        return spectacleRepo.findAll();
-    }
+    String updateSpectacle(final long id, final Spectacle spectacle);
 
-    public Optional<Spectacle> findById(Long id) {
-        return spectacleRepo.findById(id);
-    }
+    String deleteSpectacle(final long id, final Model model);
 
-    public Spectacle save(Spectacle spectacle) {
-        return spectacleRepo.save(spectacle);
-    }
+    String showSpectacleRepertoireForm(final String spectacleName, final Model model);
 
-    public void deleteById(Long id) {
-        spectacleRepo.deleteById(id);
-    }
+    String addSpectacleRepertoire(final Repertoire repertoire, final Long spectacleId, final BindingResult result);
 
+    String showUpdateSpectacleRepertoireForm(final String spectacleName, final Long repertoireId, final Model model);
+
+    String updateSpectacleRepertoire(final Repertoire repertoire, final Long repertoireId, final BindingResult result);
+
+    String deleteSpectacleRepertoire(final Long repertoireId, final Model model);
 }

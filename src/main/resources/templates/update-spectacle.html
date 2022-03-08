@@ -29,7 +29,7 @@
                             <label for="description" class="col-form-label">Opis </label> <input type="text" th:field="*{description}" class="form-control" id="description" placeholder="Opis"> <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-8">
-                            <label for="lenght" class="col-form-label">Czas trwania </label> <input type="text" th:field="*{lenght}" class="form-control" id="lenght" placeholder="Czas trwania"> <span th:if="${#fields.hasErrors('lenght')}" th:errors="*{lenght}" class="text-danger"></span>
+                            <label for="lenth" class="col-form-label">Czas trwania </label> <input type="text" th:field="*{length}" class="form-control" id="length" placeholder="Czas trwania"> <span th:if="${#fields.hasErrors('length')}" th:errors="*{length}" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-8">
                             <label for="minAge" class="col-form-label">Minimalny wiek </label> <input type="text" th:field="*{minAge}" class="form-control" id="minAge" placeholder="Minimalny wiek"> <span th:if="${#fields.hasErrors('minAge')}" th:errors="*{minAge}" class="text-danger"></span>

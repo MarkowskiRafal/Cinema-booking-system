@@ -1,10 +1,11 @@
-package pl.markowski.kinoteatr.repo;
+package pl.markowski.kinoteatr.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import pl.markowski.kinoteatr.model.Spectacle;
 
 @Repository
-public interface SpectacleRepo extends JpaRepository<Spectacle, Long> {
-    Spectacle findByTitle(String title);
+public interface SpectacleRepository extends JpaRepository<Spectacle, Long> {
+
+    Spectacle findByTitle(final String title);
 }
