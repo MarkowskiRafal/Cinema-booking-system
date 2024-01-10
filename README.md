@@ -5,7 +5,7 @@ https://kinoteatr-app.herokuapp.com
 </br>
 <b>User account-</b> login: <b>user</b> password: <b>user</b> | <b>Admin account-</b> login: <b>admin</b> password: <b>admin</b>
 
-## Contents
+## Table of Contents
 * [About](#about)
 * [Changelog](#changelog)
 * [Technologies](#technologies)
